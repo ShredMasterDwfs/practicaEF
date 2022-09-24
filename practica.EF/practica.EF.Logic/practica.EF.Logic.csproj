@@ -51,11 +51,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseLogic.cs" />
+    <Compile Include="CustomersLogic.cs" />
+    <Compile Include="EmployeesLogic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\practica.EF.Data\practica.EF.Data.csproj">
+      <Project>{ACEC2114-9080-4EB3-8ABD-1511B97AC88F}</Project>
+      <Name>practica.EF.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\practica.EF.Entities\practica.EF.Entities.csproj">
+      <Project>{CAFCB39C-59CA-4E79-831A-3EC0E7FF0675}</Project>
+      <Name>practica.EF.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
