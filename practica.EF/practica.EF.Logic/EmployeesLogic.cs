@@ -8,12 +8,33 @@ using System.Threading.Tasks;
 
 namespace practica.EF.Logic
 {
-    public class EmployeesLogic : BaseLogic
+    public class EmployeesLogic : BaseLogic, IABMLogic<Employees>
     {
+        public void Add(Employees newEmployees)
+        {
+            context.Employees.Add(newEmployees);
+            context.SaveChanges();
+        }
+
+        public void Delete(string id)
+        {
+            var employeeToDelete = context.Employees.Find(id);
+            context.Employees.Remove(employeeToDelete);
+            context.SaveChanges();
+        }
 
         public List<Employees> GetAll()
         {
             return context.Employees.ToList();
+        }
+
+        public void Update(Employees employees)
+        {
+            var employeesUpdate = context.Employees.Find(employees.EmployeeID);
+            employeesUpdate.FirstName = employees.FirstName;
+            employeesUpdate.LastName = employees.LastName;
+            employeesUpdate.Title = employees.Title;
+            context.SaveChanges();
         }
     }
 }

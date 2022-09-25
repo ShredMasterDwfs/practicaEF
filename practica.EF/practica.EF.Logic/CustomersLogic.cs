@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace practica.EF.Logic
 {
-    public class CustomersLogic : BaseLogic
+    public class CustomersLogic : BaseLogic, IABMLogic<Customers>
     {
         public List<Customers> GetAll()
         {
@@ -32,6 +32,7 @@ namespace practica.EF.Logic
         {
             var customersUpdate = context.Customers.Find(customers.CustomerID);
             customersUpdate.ContactName = customers.ContactName;
+            customersUpdate.CompanyName = customers.CompanyName;
             context.SaveChanges();
         }
     }
