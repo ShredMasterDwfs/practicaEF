@@ -23,7 +23,7 @@ namespace practica.EF.UI
             Console.WriteLine("║                                 ║");
             Console.WriteLine("║ -1 VER TABLA DE EMPLEADOS.      ║");
             Console.WriteLine("║ -2 VER TABLA DE CLIENTES.       ║");
-            Console.WriteLine("║ -2 SALIR                        ║");
+            Console.WriteLine("║ -3 SALIR.                       ║");
             Console.WriteLine("║                                 ║");
             Console.WriteLine("╚═════════════════════════════════╝");
 
