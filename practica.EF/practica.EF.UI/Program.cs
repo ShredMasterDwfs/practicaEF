@@ -13,53 +13,6 @@ namespace practica.EF.UI
         static void Main(string[] args)
         {
             ShowUI();
-            
-            //CustomersLogic customersLogic = new CustomersLogic();
-
-            //foreach (var item in customersLogic.GetAll())
-            //{
-            //    Console.WriteLine($"{item.CustomerID}\t{item.CompanyName}\t{item.ContactName}");
-            //}
-            //Console.WriteLine();
-
-            //// INSERT:
-            //customersLogic.Insert(new Customers
-            //{
-            //    CustomerID = "LPHMX",
-            //    CompanyName = "Los Pollos Hermanos",
-            //    ContactName = "None"
-            //});
-
-            //foreach (var item in customersLogic.GetAll())
-            //{
-            //    Console.WriteLine($"{item.CustomerID}\t{item.CompanyName}\t{item.ContactName}");
-            //}
-
-            //Console.WriteLine();
-
-            //// UPDATE:
-            //customersLogic.Update(new Customers
-            //{
-            //    ContactName = "Gustavo Fring",
-            //    CustomerID = "LPHMX"
-            //});
-
-            //foreach (var item in customersLogic.GetAll())
-            //{
-            //    Console.WriteLine($"{item.CustomerID}\t{item.CompanyName}\t{item.ContactName}");
-            //}
-
-            //Console.WriteLine();
-
-
-            //// DELETE:
-            //customersLogic.Delete("LPHMX");
-
-            //foreach (var item in customersLogic.GetAll())
-            //{
-            //    Console.WriteLine($"{item.CustomerID}\t{item.CompanyName}\t{item.ContactName}");
-            //}
-
             Console.ReadLine();
         }
 
@@ -70,6 +23,7 @@ namespace practica.EF.UI
             Console.WriteLine("║                                 ║");
             Console.WriteLine("║ -1 VER TABLA DE EMPLEADOS.      ║");
             Console.WriteLine("║ -2 VER TABLA DE CLIENTES.       ║");
+            Console.WriteLine("║ -2 SALIR                        ║");
             Console.WriteLine("║                                 ║");
             Console.WriteLine("╚═════════════════════════════════╝");
 
@@ -98,11 +52,13 @@ namespace practica.EF.UI
 
                         ShowAbmUI("CLIENTES");
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-
-                        throw;
+                        Console.WriteLine(e.Message);
                     }
+                    break;
+                case "3":
+                    Environment.Exit(0);
                     break;
 
                 default:
@@ -115,9 +71,8 @@ namespace practica.EF.UI
 
         public static void ShowAbmUI(string table)
         {
-
-
-            Console.WriteLine($"Tabla selecionada: {table}.");
+            Console.WriteLine("");
+            Console.WriteLine($"Tabla seleccionada: {table}.");
             Console.WriteLine("");
             Console.WriteLine("╔═════════════════════════════════╗");
             Console.WriteLine("║    SELECCIONAR UNA OPERACIÓN    ║");
@@ -126,6 +81,8 @@ namespace practica.EF.UI
             Console.WriteLine("║ -2 MODIFICAR REGISTRO.          ║");
             Console.WriteLine("║ -3 ELIMINAR REGISTRO.           ║");
             Console.WriteLine("║ -4 CONSULTAR TABLA.             ║");
+            Console.WriteLine("║ -5 MENÚ ANTERIOR                ║");
+            Console.WriteLine("║ -6 SALIR                        ║");
             Console.WriteLine("║                                 ║");
             Console.WriteLine("╚═════════════════════════════════╝");
 
@@ -146,7 +103,7 @@ namespace practica.EF.UI
                             string contact;
 
                             Console.Write("Ingrese ID de cliente (deber esta compuesto de 5 caracteres):");
-                            id = Console.ReadLine();
+                            id = Console.ReadLine().ToUpper();
                             Console.Write("Ingrese el nombre de la compañia:");
                             name = Console.ReadLine();
                             Console.Write("Ingrese el nombre de contacto:");
@@ -158,7 +115,9 @@ namespace practica.EF.UI
                             CompanyName = name,
                             ContactName = contact
                         });
-                            
+
+                            Console.WriteLine("Registro agregado correctamente.");
+                            ShowPreviousMenu(table);
                         }
                         else
                         {
@@ -180,17 +139,11 @@ namespace practica.EF.UI
                                 FirstName = firstName,
                                 LastName = lastName,
                                 Title = title
-                            });                            
-                        }
+                            });
 
-                        try
-                        {
+                            Console.WriteLine("Registro agregado correctamente.");
                             ShowPreviousMenu(table);
-                        }
-                        catch (Exception e)
-                        {
-                            Console.WriteLine(e.Message);
-                        }
+                        }                        
                     }
                     catch (Exception e)
                     {
@@ -221,7 +174,10 @@ namespace practica.EF.UI
                                 CustomerID = id,
                                 CompanyName = name,
                                 ContactName = contact
-                            });                            
+                            });
+
+                            Console.WriteLine("Registro actualizado correctamente.");
+                            ShowPreviousMenu(table);
                         }
                         else
                         {
@@ -248,6 +204,9 @@ namespace practica.EF.UI
                                 LastName = lastName,
                                 Title = title
                             });
+
+                            Console.WriteLine("Registro actualizado correctamente.");
+                            ShowPreviousMenu(table);                                                   
                         }
 
                         try
@@ -270,21 +229,45 @@ namespace practica.EF.UI
                     {
                         if (table == "CLIENTES")
                         {
-                            string customerID;
-                            Console.WriteLine("Ingrese el ID del Cliente que desea eliminar:");
-                            customerID = Console.ReadLine();
-                            CustomersLogic customersLogic = new CustomersLogic();
+                            try
+                            {
+                                string customerID;
+                                Console.WriteLine("Ingrese el ID del Cliente que desea eliminar:");
+                                customerID = Console.ReadLine().ToUpper();
+
+                                CustomersLogic customersLogic = new CustomersLogic();
                             
-                            customersLogic.Delete(customerID);
+                                customersLogic.Delete(customerID);
+                                Console.WriteLine("Registro eliminado correctamente.");
+                                ShowPreviousMenu(table);
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine($"No se encontró el ID especificado.");
+                                ShowAbmUI(table);
+                            }
+                            
                         }
                         else
                         {
-                            string employeeID;
-                            Console.WriteLine("Ingrese el ID del Empleado que desea eliminar:");
-                            employeeID = Console.ReadLine();
-                            CustomersLogic customersLogic = new CustomersLogic();
+                            try
+                            {
+                                string employeeID;
+                                Console.WriteLine("Ingrese el ID del Empleado que desea eliminar:");
+                                employeeID = Console.ReadLine();
 
-                            customersLogic.Delete(employeeID);
+                                EmployeesLogic employeesLogic = new EmployeesLogic();
+
+                                employeesLogic.Delete(employeeID);
+                                Console.WriteLine("Registro eliminado correctamente.");
+                                ShowPreviousMenu(table);
+                            }
+                            catch (Exception)
+                            {                              
+                                Console.WriteLine($"No se encontró el ID especificado.");
+                                ShowAbmUI(table);
+                            }
+                            
                         }
                     }
                     catch (Exception e)
@@ -313,6 +296,15 @@ namespace practica.EF.UI
                     {
                         Console.WriteLine(e.Message);
                     }
+                    break;
+
+                case "5":
+                    Console.Clear();
+                    ShowUI();
+                    break;
+
+                case "6":
+                    Environment.Exit(0);
                     break;
 
                 default:
@@ -352,16 +344,20 @@ namespace practica.EF.UI
             Console.WriteLine("");
             string goToMenu = "";
             Console.WriteLine("Desea volver al menú anterior? (s/n)");
-            goToMenu = Console.ReadLine();
+            goToMenu = Console.ReadLine().ToLower();
 
 
             if (goToMenu == "s")
             {
                 ShowAbmUI(table);
             }
-            else
+            else if (goToMenu == "n")
             {
                 Environment.Exit(0);
+            }
+            else
+            {
+                ShowPreviousMenu(table);
             }
         }
     }
