@@ -241,12 +241,18 @@ namespace practica.EF.UI
                                 Console.WriteLine("Registro eliminado correctamente.");
                                 ShowPreviousMenu(table);
                             }
-                            catch (Exception)
+                            catch (ArgumentNullException)
                             {
                                 Console.WriteLine($"No se encontró el ID especificado.");
+                                Console.WriteLine("");
                                 ShowAbmUI(table);
                             }
-                            
+                            catch (Exception)
+                            {
+                                Console.WriteLine("No se puede eliminar el ID especificado porque la tabla contiene relaciones con otras tablas.");
+                                ShowAbmUI(table);
+                            }
+
                         }
                         else
                         {
@@ -262,12 +268,17 @@ namespace practica.EF.UI
                                 Console.WriteLine("Registro eliminado correctamente.");
                                 ShowPreviousMenu(table);
                             }
-                            catch (Exception)
-                            {                              
+                            catch (ArgumentNullException)
+                            {                                
                                 Console.WriteLine($"No se encontró el ID especificado.");
+                                Console.WriteLine("");
                                 ShowAbmUI(table);
                             }
-                            
+                            catch (Exception)
+                            {
+                                Console.WriteLine("No se puede eliminar el ID especificado porque la tabla contiene relaciones con otras tablas.");
+                                ShowAbmUI(table);
+                            }                            
                         }
                     }
                     catch (Exception e)
