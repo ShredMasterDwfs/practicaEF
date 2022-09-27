@@ -98,23 +98,24 @@ namespace practica.EF.UI
                         {
                             CustomersLogic customersLogic = new CustomersLogic();
 
-                            string id;
+                            string companyId;
                             string name;
-                            string contact;
-
-                            Console.Write("Ingrese ID de cliente (deber esta compuesto de 5 caracteres):");
-                            id = Console.ReadLine().ToUpper();
+                            string contact;                            
+                            
                             Console.Write("Ingrese el nombre de la compañia:");
                             name = Console.ReadLine();
+                            char[] nameArray = name.ToCharArray();
+                            companyId = $"{nameArray[0]}{nameArray[1]}{nameArray[2]}{nameArray[nameArray.Length - 2]}{nameArray[nameArray.Length - 1]}".ToUpper();
+                         
                             Console.Write("Ingrese el nombre de contacto:");
                             contact = Console.ReadLine();
 
                             customersLogic.Add(new Customers
-                        {
-                            CustomerID = id,
-                            CompanyName = name,
-                            ContactName = contact
-                        });
+                            {
+                                CustomerID = companyId,
+                                CompanyName = name,
+                                ContactName = contact
+                            });
 
                             Console.WriteLine("Registro agregado correctamente.");
                             ShowPreviousMenu(table);
@@ -156,28 +157,41 @@ namespace practica.EF.UI
                     {
                         if (table == "CLIENTES")
                         {
-                            CustomersLogic customersLogic = new CustomersLogic();
-
-                            string id;
-                            string name;
-                            string contact;
-
-                            Console.Write("Ingrese ID de cliente (deber esta compuesto de 5 caracteres):");
-                            id = Console.ReadLine().ToUpper();
-                            Console.Write("Ingrese el nombre de la compañia:");
-                            name = Console.ReadLine();
-                            Console.Write("Ingrese el nombre de contacto:");
-                            contact = Console.ReadLine();
-
-                            customersLogic.Update(new Customers
+                            try
                             {
-                                CustomerID = id,
-                                CompanyName = name,
-                                ContactName = contact
-                            });
+                                CustomersLogic customersLogic = new CustomersLogic();
 
-                            Console.WriteLine("Registro actualizado correctamente.");
-                            ShowPreviousMenu(table);
+                                string id;
+                                string name;
+                                string contact;
+
+                                Console.Write("Ingrese ID de cliente (deber esta compuesto de 5 caracteres):");
+                                id = Console.ReadLine().ToUpper();
+                                Console.Write("Ingrese el nombre de la compañia:");
+                                name = Console.ReadLine();
+                                Console.Write("Ingrese el nombre de contacto:");
+                                contact = Console.ReadLine();
+
+                                customersLogic.Update(new Customers
+                                {
+                                    CustomerID = id,
+                                    CompanyName = name,
+                                    ContactName = contact
+                                });
+
+                                Console.WriteLine("Registro actualizado correctamente.");
+                                ShowPreviousMenu(table);
+                            }
+                            catch (NullReferenceException)
+                            {
+                                Console.WriteLine("Formato incorrecto.");
+                                ShowAbmUI(table);
+                            }
+                            catch (Exception)
+                            {
+                                throw;
+                            }
+                            
                         }
                         else
                         {
@@ -218,6 +232,10 @@ namespace practica.EF.UI
                             Console.WriteLine(e.Message);
                         }
                     }
+                    catch (NullReferenceException)
+                    {
+                        Console.WriteLine("Formato incorrecto.");
+                    }
                     catch (Exception e)
                     {
                         Console.WriteLine(e.Message);
@@ -241,6 +259,12 @@ namespace practica.EF.UI
                                 Console.WriteLine("Registro eliminado correctamente.");
                                 ShowPreviousMenu(table);
                             }
+                            catch (NullReferenceException)
+                            {
+                                Console.WriteLine("Formato incorrecto. El ID de cliente esta formado por 5 caracteres.");
+                                Console.WriteLine("");
+                                ShowAbmUI(table);
+                            }
                             catch (ArgumentNullException)
                             {
                                 Console.WriteLine($"No se encontró el ID especificado.");
@@ -252,7 +276,6 @@ namespace practica.EF.UI
                                 Console.WriteLine("No se puede eliminar el ID especificado porque la tabla contiene relaciones con otras tablas.");
                                 ShowAbmUI(table);
                             }
-
                         }
                         else
                         {
@@ -268,10 +291,21 @@ namespace practica.EF.UI
                                 Console.WriteLine("Registro eliminado correctamente.");
                                 ShowPreviousMenu(table);
                             }
+                            catch (FormatException)
+                            {
+                                Console.WriteLine($"Formato incorrecto. El ID debe ser un número entero.");
+                                Console.WriteLine("");
+                                ShowAbmUI(table);
+                            }
                             catch (ArgumentNullException)
                             {                                
                                 Console.WriteLine($"No se encontró el ID especificado.");
                                 Console.WriteLine("");
+                                ShowAbmUI(table);
+                            }
+                            catch (OverflowException)
+                            {
+                                Console.WriteLine("Número demasiado grande.");
                                 ShowAbmUI(table);
                             }
                             catch (Exception)
@@ -330,11 +364,11 @@ namespace practica.EF.UI
         {
             EmployeesLogic employeesLogic = new EmployeesLogic();
 
-            Console.WriteLine($"EMPLOYEE_ID\tFULL_NAME\t\tTITLE");
+            Console.WriteLine($"EMPLOYEE_ID\tFULL_NAME\t\t\t\tTITLE");
 
             foreach (var item in employeesLogic.GetAll())
             {
-                Console.WriteLine($"{item.EmployeeID}\t\t{item.LastName}, {item.FirstName}\t\t{item.Title}");
+                Console.WriteLine($"{item.EmployeeID}\t\t{item.LastName}, {item.FirstName}\t\t\t\t{item.Title}");
             }
         }
 
@@ -371,5 +405,6 @@ namespace practica.EF.UI
                 ShowPreviousMenu(table);
             }
         }
+
     }
 }

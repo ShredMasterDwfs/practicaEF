@@ -33,7 +33,7 @@ namespace practica.EF.Logic
             var customersUpdate = context.Customers.Find(customers.CustomerID);
             customersUpdate.ContactName = customers.ContactName;
             customersUpdate.CompanyName = customers.CompanyName;
-            context.SaveChanges();
+            context.SaveChanges();            
         }
     }
 }

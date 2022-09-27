@@ -34,7 +34,7 @@ namespace practica.EF.Logic
             employeesUpdate.FirstName = employees.FirstName;
             employeesUpdate.LastName = employees.LastName;
             employeesUpdate.Title = employees.Title;
-            context.SaveChanges();
+            context.SaveChanges();            
         }
     }
 }
