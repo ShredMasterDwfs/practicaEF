@@ -104,8 +104,8 @@ namespace practica.EF.UI
                             
                             Console.Write("Ingrese el nombre de la compañia:");
                             name = Console.ReadLine();
-                            char[] nameArray = name.ToCharArray();
-                            companyId = $"{nameArray[0]}{nameArray[1]}{nameArray[2]}{nameArray[nameArray.Length - 2]}{nameArray[nameArray.Length - 1]}".ToUpper();
+
+                            companyId = GenerateStringId(name);
                          
                             Console.Write("Ingrese el nombre de contacto:");
                             contact = Console.ReadLine();
@@ -164,9 +164,22 @@ namespace practica.EF.UI
                                 string id;
                                 string name;
                                 string contact;
-
+                              
                                 Console.Write("Ingrese ID de cliente (deber esta compuesto de 5 caracteres):");
-                                id = Console.ReadLine().ToUpper();
+                                id = Console.ReadLine();
+
+                                if (id.Length == 5 && int.TryParse(id, out _))
+                                {
+                                    id.ToUpper();
+                                } else
+                                {
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    Console.WriteLine("ID incorrecto.");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                    ShowAbmUI(table);
+                                }
+
+                                
                                 Console.Write("Ingrese el nombre de la compañia:");
                                 name = Console.ReadLine();
                                 Console.Write("Ingrese el nombre de contacto:");
@@ -406,5 +419,14 @@ namespace practica.EF.UI
             }
         }
 
+        public static string GenerateStringId(string name)
+        {
+            string companyId;
+            Console.Write("Ingrese el nombre de la compañia:");
+            name = Console.ReadLine();
+            char[] nameArray = name.ToCharArray();
+            companyId = $"{nameArray[0]}{nameArray[1]}{nameArray[2]}{nameArray[nameArray.Length - 2]}{nameArray[nameArray.Length - 1]}".ToUpper();
+            return companyId;
+        }
     }
 }
