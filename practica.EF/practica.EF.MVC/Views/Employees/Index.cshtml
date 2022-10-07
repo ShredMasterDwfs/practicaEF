@@ -1,0 +1,28 @@
+﻿@model List<practica.EF.Entities.Employees>
+
+@{
+    ViewBag.Title = "Employees Page";
+}
+
+<h1>Employees Table</h1>
+
+<table class="table table-dark table-striped">
+    <thead>
+        <tr>
+            <th scope="col"> Employee_Id </th>
+            <th scope="col"> First_Name </th>
+            <th scope="col"> Last_Name </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <th scope="row">@employee.EmployeeID</th>
+                <td>@employee.FirstName</td>
+                <td>@employee.LastName</td>
+            </tr>
+        }
+    </tbody>
+</table>

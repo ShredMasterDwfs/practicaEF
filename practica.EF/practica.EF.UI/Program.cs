@@ -104,11 +104,9 @@ namespace practica.EF.UI
                             
                             Console.Write("Ingrese el nombre de la compañia:");
                             name = Console.ReadLine();
-
-                            companyId = GenerateStringId(name);
-                         
                             Console.Write("Ingrese el nombre de contacto:");
                             contact = Console.ReadLine();
+                            companyId = GenerateStringId(name);
 
                             customersLogic.Add(new Customers
                             {
@@ -168,7 +166,7 @@ namespace practica.EF.UI
                                 Console.Write("Ingrese ID de cliente (deber esta compuesto de 5 caracteres):");
                                 id = Console.ReadLine();
 
-                                if (id.Length == 5 && int.TryParse(id, out _))
+                                if (id.Length == 5 && (!int.TryParse(id, out _)))
                                 {
                                     id.ToUpper();
                                 } else
@@ -400,7 +398,7 @@ namespace practica.EF.UI
         public static void ShowPreviousMenu(string table)
         {
             Console.WriteLine("");
-            string goToMenu = "";
+            string goToMenu;
             Console.WriteLine("Desea volver al menú anterior? (s/n)");
             goToMenu = Console.ReadLine().ToLower();
 
@@ -422,8 +420,6 @@ namespace practica.EF.UI
         public static string GenerateStringId(string name)
         {
             string companyId;
-            Console.Write("Ingrese el nombre de la compañia:");
-            name = Console.ReadLine();
             char[] nameArray = name.ToCharArray();
             companyId = $"{nameArray[0]}{nameArray[1]}{nameArray[2]}{nameArray[nameArray.Length - 2]}{nameArray[nameArray.Length - 1]}".ToUpper();
             return companyId;
