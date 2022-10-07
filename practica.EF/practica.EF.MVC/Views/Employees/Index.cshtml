@@ -1,4 +1,4 @@
-﻿@model List<practica.EF.Entities.Employees>
+﻿@model List<practica.EF.MVC.Models.EmployeesView>
 
 @{
     ViewBag.Title = "Employees Page";
@@ -19,9 +19,9 @@
         @foreach (var employee in Model)
         {
             <tr>
-                <th scope="row">@employee.EmployeeID</th>
-                <td>@employee.FirstName</td>
-                <td>@employee.LastName</td>
+                <th scope="row">@employee.EmpId</th>
+                <td>@employee.EmpFirstName</td>
+                <td>@employee.EmpLastName</td>
             </tr>
         }
     </tbody>
