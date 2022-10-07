@@ -1,0 +1,14 @@
+﻿@model practica.EF.MVC.Models.EmployeesView
+
+@{ 
+    ViewBag.Title = "Insert Page";
+}
+
+<h1>Add an Employee to Data Base</h1>
+
+@using (Html.BeginForm("Insert", "Employees", FormMethod.Post))
+{
+    <label>First Name:</label> @Html.TextBoxFor(e => e.EmpFirstName)<br />
+    <label>Last Name:</label>@Html.TextBoxFor(e => e.EmpLastName)<br />
+    <input type="submit" class="btn btn-success" value="Save Data"/>
+}

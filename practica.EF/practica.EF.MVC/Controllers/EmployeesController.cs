@@ -11,10 +11,11 @@ namespace practica.EF.MVC.Controllers
 {
     public class EmployeesController : Controller
     {
+        EmployeesLogic logic = new EmployeesLogic();
         // GET: Employees
         public ActionResult Index()
         {
-            var logic = new EmployeesLogic();
+            
             List<Entities.Employees> employeesList = logic.GetAll();
 
             List<EmployeesView> employeesView = employeesList.Select(e => new EmployeesView
@@ -25,6 +26,33 @@ namespace practica.EF.MVC.Controllers
             }).ToList();
 
             return View(employeesView);
+        }
+
+        public ActionResult Insert()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Insert(EmployeesView employeesView)
+        {
+            try
+            {
+                Employees employeesEntity = new Employees
+                {
+                    FirstName = employeesView.EmpFirstName,
+                    LastName = employeesView.EmpLastName
+                };
+
+                logic.Add(employeesEntity);
+
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Error");
+            }
         }
     }
 }
