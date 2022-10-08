@@ -18,9 +18,17 @@ namespace practica.EF.Logic
 
         public void Delete(string id)
         {
-            var employeeToDelete = context.Employees.Find(int.Parse(id));
-            context.Employees.Remove(employeeToDelete);
-            context.SaveChanges();
+            try
+            {
+                var employeeToDelete = context.Employees.Find(int.Parse(id));
+                context.Employees.Remove(employeeToDelete);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         public List<Employees> GetAll()

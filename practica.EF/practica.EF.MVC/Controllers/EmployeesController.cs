@@ -38,21 +38,61 @@ namespace practica.EF.MVC.Controllers
         {
             try
             {
-                Employees employeesEntity = new Employees
+                if (ModelState.IsValid)
                 {
-                    FirstName = employeesView.EmpFirstName,
-                    LastName = employeesView.EmpLastName
-                };
+                    Employees employeesEntity = new Employees
+                    {
+                        FirstName = employeesView.EmpFirstName,
+                        LastName = employeesView.EmpLastName
+                    };
 
-                logic.Add(employeesEntity);
+                    logic.Add(employeesEntity);                    
+                } 
 
                 return RedirectToAction("Index");
-
             }
             catch (Exception)
             {
                 return RedirectToAction("Index", "Error");
             }
+        }
+
+        public ActionResult Delete(string id)
+        {
+            try
+            {
+                logic.Delete(id);
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Error");               
+            }            
+        }
+
+        [HttpPost]
+        public ActionResult Update(EmployeesView employeesView)
+        {
+            try
+            {
+                var updEmployee = employeesView.EmpId;
+
+                if (ModelState.IsValid)
+                {
+                    Employees employeesEntity = new Employees
+                    {
+                        FirstName = employeesView.EmpFirstName,
+                        LastName = employeesView.EmpLastName
+                    };                                     
+                } 
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index", "Error");
+            }
+            
         }
     }
 }

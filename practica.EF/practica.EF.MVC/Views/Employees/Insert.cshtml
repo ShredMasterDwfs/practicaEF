@@ -1,6 +1,6 @@
 ﻿@model practica.EF.MVC.Models.EmployeesView
 
-@{ 
+@{
     ViewBag.Title = "Insert Page";
 }
 
@@ -8,7 +8,14 @@
 
 @using (Html.BeginForm("Insert", "Employees", FormMethod.Post))
 {
-    <label>First Name:</label> @Html.TextBoxFor(e => e.EmpFirstName)<br />
-    <label>Last Name:</label>@Html.TextBoxFor(e => e.EmpLastName)<br />
-    <input type="submit" class="btn btn-success" value="Save Data"/>
+    @Html.LabelFor(e => e.EmpFirstName)
+    @Html.TextBoxFor(e => e.EmpFirstName, "", new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(e => e.EmpLastName)
+    @Html.TextBoxFor(e => e.EmpLastName, "", new { @class = "form-control" })
+    <br />
+    <input type="submit" class="btn btn-success" value="Save Data" />
+    <input type="reset" class="btn btn-primary" value="Clear Entries" />
+    <input type="button" class="btn btn-info" value="Back to Table" onclick="location.href='index'" />
 }
+

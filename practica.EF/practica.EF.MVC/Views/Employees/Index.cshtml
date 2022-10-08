@@ -12,21 +12,29 @@
             <th scope="col"> Employee_Id </th>
             <th scope="col"> First_Name </th>
             <th scope="col"> Last_Name </th>
+            <th scope="col"></th>            
         </tr>
     </thead>
 
     <tbody>
         @foreach (var employee in Model)
         {
-            <tr>
-                <th scope="row">@employee.EmpId</th>
-                <td>@employee.EmpFirstName</td>
-                <td>@employee.EmpLastName</td>
-            </tr>
+        <tr>
+            <th scope="row">@employee.EmpId</th>
+            <td>@employee.EmpFirstName</td>
+            <td>@employee.EmpLastName</td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = employee.EmpId },
+        new { onclick = "return confirm('Are you sure you want to delete the selected employee?')" })                
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Insert", new { id = employee.EmpId })                
+            </td>
+        </tr>
         }
     </tbody>
 </table>
 
-<div>
+<div class="btn btn-success">
     @Html.ActionLink("Add New Employee", "Insert")
 </div>
