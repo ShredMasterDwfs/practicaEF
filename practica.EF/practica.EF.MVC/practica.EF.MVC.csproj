@@ -176,6 +176,7 @@
     <Content Include="Views\Employees\Insert.cshtml" />
     <Content Include="Views\ErrorView.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Employees\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -70,22 +70,40 @@ namespace practica.EF.MVC.Controllers
             }            
         }
 
+        public ActionResult Update(int id)
+        {
+            List<Employees> employees = logic.GetAll();
+            var employeesView = employees.Where(e => e.EmployeeID == id).FirstOrDefault();
+            EmployeesView employeesModel = new EmployeesView()
+            {
+                EmpId = employeesView.EmployeeID,
+                EmpFirstName = employeesView.FirstName,
+                EmpLastName = employeesView.LastName
+            };
+
+            return View(employeesModel);
+        }
+
         [HttpPost]
         public ActionResult Update(EmployeesView employeesView)
         {
             try
-            {
-                var updEmployee = employeesView.EmpId;
-
+            {                
                 if (ModelState.IsValid)
                 {
-                    Employees employeesEntity = new Employees
-                    {
-                        FirstName = employeesView.EmpFirstName,
-                        LastName = employeesView.EmpLastName
-                    };                                     
-                } 
+                    return View(employeesView);                                  
+                }
 
+                List<Employees> employeesList = logic.GetAll();
+                var employeesNewList = employeesList.Where(e => e.EmployeeID == employeesView.EmpId).FirstOrDefault();
+                Employees updEmployees = new Employees
+                {
+                    EmployeeID = employeesView.EmpId,
+                    FirstName=employeesView.EmpFirstName,
+                    LastName=employeesView.EmpLastName
+                };
+
+                logic.Update(updEmployees);
                 return RedirectToAction("Index");
             }
             catch (Exception)

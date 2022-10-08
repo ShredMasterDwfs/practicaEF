@@ -12,7 +12,7 @@
             <th scope="col"> Employee_Id </th>
             <th scope="col"> First_Name </th>
             <th scope="col"> Last_Name </th>
-            <th scope="col"></th>            
+            <th scope="col"> Action </th>            
         </tr>
     </thead>
 
@@ -25,10 +25,10 @@
             <td>@employee.EmpLastName</td>
             <td>
                 @Html.ActionLink("Delete", "Delete", new { id = employee.EmpId },
-        new { onclick = "return confirm('Are you sure you want to delete the selected employee?')" })                
+                    new { onclick = "return confirm('Are you sure you want to delete the selected employee?')" })            
             </td>
             <td>
-                @Html.ActionLink("Edit", "Insert", new { id = employee.EmpId })                
+                @Html.ActionLink("Edit", "Update", new { id = employee.EmpId })           
             </td>
         </tr>
         }

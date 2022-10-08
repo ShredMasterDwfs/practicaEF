@@ -41,7 +41,6 @@ namespace practica.EF.Logic
             var employeesUpdate = context.Employees.Find(employees.EmployeeID);
             employeesUpdate.FirstName = employees.FirstName;
             employeesUpdate.LastName = employees.LastName;
-            employeesUpdate.Title = employees.Title;
             context.SaveChanges();            
         }
     }
