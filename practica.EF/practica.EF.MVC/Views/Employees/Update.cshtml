@@ -8,6 +8,7 @@
 
 @using (Html.BeginForm("Update", "Employees", FormMethod.Post))
 {
+    @Html.HiddenFor(e=>e.EmpId)
     @Html.LabelFor(e => e.EmpFirstName)
     @Html.TextBoxFor(e => e.EmpFirstName, "", new { @class = "form-control" })
     <br />

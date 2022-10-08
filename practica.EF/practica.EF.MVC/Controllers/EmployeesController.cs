@@ -88,10 +88,10 @@ namespace practica.EF.MVC.Controllers
         public ActionResult Update(EmployeesView employeesView)
         {
             try
-            {                
-                if (ModelState.IsValid)
+            {
+                if (!ModelState.IsValid)
                 {
-                    return View(employeesView);                                  
+                    return View(employeesView);
                 }
 
                 List<Employees> employeesList = logic.GetAll();
