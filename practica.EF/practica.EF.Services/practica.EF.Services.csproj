@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Interface\IServices.cs" />
     <Compile Include="Models\EmployeesService.cs" />
+    <Compile Include="Models\ExternalAPIService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

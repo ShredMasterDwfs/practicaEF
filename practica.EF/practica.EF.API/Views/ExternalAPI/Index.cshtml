@@ -1,0 +1,35 @@
+﻿@model List<practica.EF.API.Models.ExternalAPIModel>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>PUBLIC API</h2>
+
+@if (Model.Count() > 0)
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Post_ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Body</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.postId</td>
+                    <td>@item.name</td>
+                    <td>@item.email</td>
+                    <td>@item.body</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2></h2>
+}
