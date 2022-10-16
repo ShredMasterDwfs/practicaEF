@@ -10,10 +10,23 @@ namespace practica.EF.Logic
 {
     public class EmployeesLogic : BaseLogic, IABMLogic<Employees>
     {
+
+        public EmployeesLogic() : base()
+        {
+
+        }
         public void Add(Employees newEmployees)
         {
-            context.Employees.Add(newEmployees);
-            context.SaveChanges();
+            try
+            {
+                context.Employees.Add(newEmployees);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            
         }
 
         public void Delete(string id)
@@ -27,13 +40,21 @@ namespace practica.EF.Logic
             catch (Exception ex)
             {
                 throw ex;
-            }
-            
+            }            
         }
 
         public List<Employees> GetAll()
         {
-            return context.Employees.ToList();
+            try
+            {
+                return context.Employees.ToList();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
         }
 
         public void Update(Employees employees)
