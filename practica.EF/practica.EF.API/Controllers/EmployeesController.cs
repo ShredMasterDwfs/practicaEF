@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using practica.EF.Services.Models;
+using System.Web.Http.Cors;
 
 namespace practica.EF.API.Controllers
 {
