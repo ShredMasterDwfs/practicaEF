@@ -11,7 +11,7 @@ namespace practica.EF.API
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de API web
-            var cors = new EnableCorsAttribute(origins: "https://localhost:44328", headers: "*", methods: "*");
+            EnableCorsAttribute cors = new EnableCorsAttribute(origins: "*", headers: "*", methods: "*");
             config.EnableCors(cors);
 
             // Rutas de API web
